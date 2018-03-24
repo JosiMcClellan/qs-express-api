@@ -1,0 +1,14 @@
+[
+  { "calories": 150, "name": "Banana" },
+  { "calories": 650, "name": "Bagel Bites - Four Cheese" },
+  { "calories": 800, "name": "Chicken Burrito" },
+  { "calories": 180, "name": "Grapes" },
+  { "calories": 450, "name": "Blueberry Muffins" },
+  { "calories": 550, "name": "Yogurt" },
+  { "calories": 950, "name": "Macaroni and Cheese" },
+  { "calories": 200, "name": "Granola Bar" },
+  { "calories":  50, "name": "Gum" },
+  { "calories": 400, "name": "Cheese" },
+  { "calories": 120, "name": "Fruit Snacks" },
+  { "calories": 220, "name": "Apple" }
+]
