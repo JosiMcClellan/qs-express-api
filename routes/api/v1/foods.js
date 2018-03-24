@@ -3,29 +3,46 @@ var router = express.Router();
 
 var environment = process.env.NODE_ENV || 'development'
 var configuration = require('../../../knexfile')[environment]
-var database = require('knex')(configuration)
+var knex = require('knex')(configuration)
+
+function filterObject(object, ...allowed) {
+  return allowed.reduce((filtered, name) => {
+    if (object.hasOwnProperty(name)) filtered[name] = object[name]
+    return filtered
+  }, {})
+}
 
 /* GET users listing. */
 router.get('/', function(req, res, _next) {
-  database.select().from('foods').then(rows => {
-    res.status(200).json(rows);
-  })
+  knex('foods').then(foods => res.status(200).json(foods))
 });
 
 router.get('/:id', function(req, res, _next) {
-  res.status(500).json({ error: 'foods show NYI' });
+  knex('foods').where({ id: req.params.id }).first().then(food => {
+    res.status(200).json(food);
+  });
 });
 
 router.post('/', function(req, res, _next) {
-  res.status(500).json({ error: 'foods create NYI' });
+  const params = filterObject(req.body, 'name', 'calories');
+  knex('foods').returning('*').insert(params).first().then(created => {
+    res.status(201).json(created);
+  });
 });
 
 router.patch('/:id', function(req, res, _next) {
-  res.status(500).json({ error: 'foods update NYI' });
+  const { id } = req.params;
+  const params = filterObject(req.body, 'name', 'calories');
+  knex('foods')
+    .returning('*')
+    .where({ id })
+    .update(params)
+    .then(updated => res.status(201).json(updated[0]));
 });
 
 router.delete('/:id', function(req, res, _next) {
-  res.status(500).json({ error: 'foods destroy NYI' });
+  const { id } = req.params
+  knex('foods').where({ id }).del().then(() => res.status(204).json({}))
 });
 
 module.exports = router;
