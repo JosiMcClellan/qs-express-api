@@ -1,9 +1,6 @@
 var express = require('express')
 var router = express.Router()
-
-var environment = process.env.NODE_ENV || 'development'
-var configuration = require('../../../knexfile')[environment]
-var knex = require('knex')(configuration)
+const Food = require('../../../models/food')
 
 function filterObject(object, ...allowed) {
   return allowed.reduce((filtered, name) => {
@@ -13,18 +10,18 @@ function filterObject(object, ...allowed) {
 }
 
 router.get('/', function(req, res, _next) {
-  knex('foods').then(foods => res.status(200).json(foods))
+  Food.all().then(foods => res.status(200).json(foods))
 })
 
 router.get('/:id', function(req, res, _next) {
-  knex('foods').where({ id: req.params.id }).first().then(food => {
+  Food.show(req.params.id).then(food => {
     res.status(200).json(food)
   })
 })
 
 router.post('/', function(req, res, _next) {
   const params = filterObject(req.body, 'name', 'calories')
-  knex('foods').returning('*').insert(params).first().then(created => {
+  Food.create(params).then(created => {
     res.status(201).json(created)
   })
 })
@@ -32,16 +29,13 @@ router.post('/', function(req, res, _next) {
 router.patch('/:id', function(req, res, _next) {
   const { id } = req.params
   const params = filterObject(req.body, 'name', 'calories')
-  knex('foods')
-    .returning('*')
-    .where({ id })
-    .update(params)
+  Food.edit(id, params)
     .then(updated => res.status(201).json(updated[0]))
 })
 
 router.delete('/:id', function(req, res, _next) {
   const { id } = req.params
-  knex('foods').where({ id }).del().then(() => res.status(204).json({}))
+  Food.destroy(id).then(() => res.status(204).json({}))
 })
 
 module.exports = router
