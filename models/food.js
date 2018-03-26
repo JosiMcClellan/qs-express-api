@@ -7,7 +7,7 @@ class Food {
     return knex('foods')
   }
 
-  static show(foodId) {
+  static find(foodId) {
     return knex('foods').where({ id: foodId }).first()
   }
 
@@ -16,10 +16,7 @@ class Food {
   }
 
   static edit(id, params) {
-    return knex('foods')
-      .returning('*')
-      .where({ id })
-      .update(params)
+    return knex('foods').returning('*').where({ id }).update(params)
   }
 
   static destroy(id) {

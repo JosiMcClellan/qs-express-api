@@ -11,7 +11,7 @@ router.get('/', (request, response) => {
 })
 
 router.get('/:meal_id/foods', (request, response) => {
-  Meal.show(request.params.meal_id)
+  Meal.find(request.params.meal_id)
   .then(meals => {
     if (meals.length) {
       response.status(200).json(meals)

@@ -14,7 +14,7 @@ router.get('/', function(req, res, _next) {
 })
 
 router.get('/:id', function(req, res, _next) {
-  Food.show(req.params.id).then(food => {
+  Food.find(req.params.id).then(food => {
     res.status(200).json(food)
   })
 })

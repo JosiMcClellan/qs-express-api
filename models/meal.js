@@ -11,7 +11,7 @@ class Meal {
       .groupBy('meals.id')
   }
 
-  static show(mealId) {
+  static find(mealId) {
     return knex('meals')
       .select(['meals.id', 'meals.name', knex.raw('ARRAY_TO_JSON(ARRAY_AGG(foods.*)) AS foods')])
       .innerJoin('meal_foods', 'meals.id', 'meal_foods.mealId')
@@ -21,14 +21,11 @@ class Meal {
   }
 
   static create(params) {
-    return knex('meal_foods')
-      .insert(params)
+    return knex('meal_foods').insert(params)
   }
 
   static destroy(params) {
-    return knex('meal_foods')
-      .where(params)
-      .del()
+    return knex('meal_foods').where(params).del()
   }
 }
 
