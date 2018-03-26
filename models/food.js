@@ -15,7 +15,7 @@ class Food {
     return knex('foods').returning('*').insert(params).first()
   }
 
-  static edit(id, params) {
+  static update(id, params) {
     return knex('foods').returning('*').where({ id }).update(params)
   }
 

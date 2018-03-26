@@ -18,6 +18,7 @@ class Meal {
       .innerJoin('foods', 'meal_foods.foodId', 'foods.id')
       .groupBy('meals.id')
       .where('meals.id', mealId)
+      .first()
   }
 
   static create(params) {
