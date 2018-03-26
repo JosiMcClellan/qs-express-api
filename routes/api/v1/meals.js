@@ -1,21 +1,34 @@
-var express = require('express');
-var router = express.Router();
+var express = require('express')
+var router = express.Router()
+const Meal = require('../../../models/meal')
 
-/* GET users listing. */
-router.get('/', function(req, res, _next) {
-  res.status(500).json({ error: 'meals index NYI' });
-});
+router.get('/', (request, response) => {
+  Meal.all()
+  .then(meals => {
+    response.status(200).json(meals)
+  })
+  .catch(error => response.status(500).json({ error }))
+})
 
-router.get('/:meal_id/foods', function(req, res, _next) {
-  res.status(500).json({ error: 'meal foods index NYI' });
-});
+router.get('/:meal_id/foods', (request, response) => {
+  Meal.find(request.params.meal_id)
+  .then(meal => {
+    if (!meal) return response.status(404).json(`No meals were found with ID of: ${request.params.meal_id}`)
+    response.status(200).json(meal)
+  })
+  .catch(error => response.status(500).json({ error }))
+})
 
-router.post('/:meal_id/foods/:id', function(req, res, _next) {
-  res.status(500).json({ error: 'meal foods create NYI' });
-});
+router.post('/:mealId/foods/:foodId', (request, response) => {
+  Meal.create(request.params)
+    .then(() => response.status(201).json(`Food with ID: ${request.params.foodId} successfully added to meal with ID: ${request.params.mealId}`))
+    .catch((error) => response.status(404).json({ error }))
+})
 
-router.delete('/:meal_id/foods/:id', function(req, res, _next) {
-  res.status(500).json({ error: 'meals index NYI' });
-});
+router.delete('/:mealId/foods/:foodId', (request, response) => {
+  Meal.destroy(request.params)
+    .then(() => response.status(204).end())
+    .catch((error) => response.status(500).json({ error }))
+})
 
-module.exports = router;
+module.exports = router
