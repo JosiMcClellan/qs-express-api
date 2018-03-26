@@ -12,7 +12,7 @@ class Food {
   }
 
   static create(params) {
-    return knex('foods').returning('*').insert(params).first()
+    return knex('foods').insert(params).returning('*')
   }
 
   static update(id, params) {
