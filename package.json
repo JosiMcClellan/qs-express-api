@@ -6,7 +6,8 @@
     "start": "node ./bin/www",
     "start:dev": "nodemon ./bin/www",
     "postinstall": "knex migrate:latest",
-    "seed": "knex seed:run"
+    "seed": "knex seed:run",
+    "test": "NODE_ENV=test mocha --exit"
   },
   "dependencies": {
     "cookie-parser": "^1.4.3",
