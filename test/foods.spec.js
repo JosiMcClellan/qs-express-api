@@ -103,8 +103,7 @@ describe('API routes', () => {
         .then(() => {
           chai.request(server)
           .delete('/api/v1/foods/13')
-          .then( (error,response) => {
-            console.log(error)
+          .then(response => {
             response.should.have.status(204)
           })
         })
