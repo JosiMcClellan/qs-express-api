@@ -11,10 +11,10 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 
 app.use((req, res, next) => {
+  // Access-Control-Allow-Methods: POST, GET, OPTIONS
   res.header("Access-Control-Allow-Origin", "*")
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
-  res.header("Access-Control-Allow-Methods", "GET, HEAD, POST, PUT, PATCH, DELETE")
-
+  res.header("Access-Control-Allow-Methods", "*")
+  res.header("Access-Control-Allow-Headers", "*")
   next()
 })
 
