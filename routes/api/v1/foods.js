@@ -25,9 +25,9 @@ router.get('/:id', function(req, res, _next) {
 })
 
 router.post('/', function(req, res, _next) {
-  const params = filterObject(req.body, 'name', 'calories')
+  const params = filterObject(req.body.food, 'name', 'calories')
   Food.create(params)
-    .then(created => res.status(201).json(created))
+    .then(created => res.status(201).json(created[0]))
     .catch(error => res.status(422).json({ error }))
 })
 
