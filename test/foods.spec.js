@@ -10,19 +10,12 @@ const database = require('knex')(configuration)
 chai.use(chaiHttp)
 
 describe('API routes', () => {
-  // before((done) => {
-  //   database.migrate.latest().then(() => done())
-  //   .catch(done)
-  // })
+  before((done) => {
+    database.migrate.latest().then(() => done())
+  })
 
   beforeEach((done) => {
-    database.migrate.rollback()
-    .then(() => {
-      database.migrate.latest()
-      .then(() => {
-        return database.seed.run().then(() => done())
-      })
-    })
+    database.seed.run().then(() => done())
   })
 
   describe('GET /api/v1/foods', () => {
