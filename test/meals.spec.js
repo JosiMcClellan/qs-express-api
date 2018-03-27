@@ -10,14 +10,8 @@ const database = require('knex')(configuration)
 chai.use(chaiHttp)
 
 describe('API routes', () => {
-
-  before((done) => {
-    database.migrate.latest().then(() => done())
-  })
-
-  beforeEach((done) => {
-    database.seed.run().then(() => done())
-  })
+  before(() => database.migrate.latest())
+  beforeEach(() => database.seed.run())
 
   describe('GET /api/v1/meals/', () => {
     it("should return an array of JSON objects for 4 meals", () => {
@@ -27,8 +21,8 @@ describe('API routes', () => {
           response.should.have.status(200)
           response.body.should.be.a('array')
           response.body.length.should.equal(4)
-          response.body[0].id.should.equal(2)
-          response.body[0].name.should.equal('lunch')
+          response.body[0].id.should.equal(1)
+          response.body[0].name.should.equal('breakfast')
           response.body[0].foods.should.be.a('array')
           response.body[0].foods[0].id.should.be.a('number')
           response.body[0].foods[0].name.should.be.a('string')
