@@ -4,7 +4,7 @@ var knex = require('knex')(configuration)
 
 class Food {
   static all() {
-    return knex('foods')
+    return knex('foods').orderBy('id')
   }
 
   static find(foodId) {

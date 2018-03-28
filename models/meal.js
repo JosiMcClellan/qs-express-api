@@ -9,6 +9,7 @@ class Meal {
       .innerJoin('meal_foods', 'meals.id', 'meal_foods.mealId')
       .innerJoin('foods', 'meal_foods.foodId', 'foods.id')
       .groupBy('meals.id')
+      .orderBy('meals.id')
   }
 
   static find(mealId) {
