@@ -20,5 +20,8 @@ app.use((req, res, next) => {
 
 app.use('/api/v1/foods', foods)
 app.use('/api/v1/meals', meals)
+app.use((req, res) => {
+  res.status(404).json({ error: `no route matches ${req.method} ${req.path}` })
+})
 
 module.exports = app

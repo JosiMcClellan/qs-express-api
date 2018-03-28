@@ -27,7 +27,7 @@ router.post('/:mealId/foods/:foodId', (request, response) => {
 
 router.delete('/:mealId/foods/:foodId', (request, response) => {
   Meal.destroy(request.params)
-    .then(() => response.status(204).end())
+    .then(() => response.status(204).json({}))
     .catch((error) => response.status(500).json({ error }))
 })
 
