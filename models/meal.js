@@ -6,8 +6,8 @@ class Meal {
   static all() {
     return knex('meals')
       .select(['meals.id', 'meals.name', knex.raw('ARRAY_TO_JSON(ARRAY_AGG(foods.*)) AS foods')])
-      .leftOuterJoin('meal_foods', 'meals.id', 'meal_foods.mealId')
-      .innerJoin('foods', 'meal_foods.foodId', 'foods.id')
+      .leftJoin('meal_foods', 'meals.id', 'meal_foods.mealId')
+      .leftJoin('foods', 'meal_foods.foodId', 'foods.id')
       .groupBy('meals.id')
       .orderBy('meals.id')
   }
@@ -15,8 +15,8 @@ class Meal {
   static find(mealId) {
     return knex('meals')
       .select(['meals.id', 'meals.name', knex.raw('ARRAY_TO_JSON(ARRAY_AGG(foods.*)) AS foods')])
-      .leftOuterJoin('meal_foods', 'meals.id', 'meal_foods.mealId')
-      .innerJoin('foods', 'meal_foods.foodId', 'foods.id')
+      .leftJoin('meal_foods', 'meals.id', 'meal_foods.mealId')
+      .leftJoin('foods', 'meal_foods.foodId', 'foods.id')
       .groupBy('meals.id')
       .where('meals.id', mealId)
       .first()
