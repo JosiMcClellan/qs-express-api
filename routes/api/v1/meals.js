@@ -22,7 +22,7 @@ router.get('/:meal_id/foods', (request, response) => {
 router.post('/:mealId/foods/:foodId', (request, response) => {
   Meal.create(request.params)
     .then(() => response.status(201).json(`Food with ID: ${request.params.foodId} successfully added to meal with ID: ${request.params.mealId}`))
-    .catch((error) => response.status(404).json({ error }))
+    .catch((error) => response.status(500).json({ error }))
 })
 
 router.delete('/:mealId/foods/:foodId', (request, response) => {
