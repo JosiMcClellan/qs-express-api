@@ -33,10 +33,18 @@ DELETE /api/v1/meals/:meal_id/foods/:id - removes the food with :id from the mea
 ```
 
 ### Initial Setup
+Clone repository:
 ```
 git clone https://github.com/JosiMcClellan/qs-express-api/
 cd qs-express-api
 npm install
+```
+Create development and test databases with PostgreSQL
+```
+psql
+CREATE DATABASE qs_express_api;
+CREATE DATABASE qs_express_api_test;
+
 npm run start:dev
 ```
 then visit http://localhost:3000
