@@ -22,7 +22,7 @@ describe('API routes', () => {
           response.body.should.be.a('array')
           response.body.length.should.equal(4)
           response.body[0].id.should.equal(1)
-          response.body[0].name.should.equal('breakfast')
+          response.body[0].name.should.equal('Breakfast')
           response.body[0].foods.should.be.a('array')
           response.body[0].foods[0].id.should.be.a('number')
           response.body[0].foods[0].name.should.be.a('string')
@@ -38,7 +38,7 @@ describe('API routes', () => {
         .then(response => {
           response.should.have.status(200)
           response.body.id.should.equal(1)
-          response.body.name.should.equal('breakfast')
+          response.body.name.should.equal('Breakfast')
           response.body.foods.should.be.a('array')
           response.body.foods[0].id.should.be.a('number')
           response.body.foods[0].name.should.be.a('string')
@@ -50,7 +50,7 @@ describe('API routes', () => {
   describe('POST /api/v1/meals/:meal_id/foods/:id', () => {
     it("should add a food to a meal", () => {
       return chai.request(server)
-        .post('/api/v1/meals/1/foods/1')
+        .post('/api/v1/meals/1/foods/8')
         .then(response => {
           response.should.have.status(201)
         })
@@ -60,7 +60,7 @@ describe('API routes', () => {
       return chai.request(server)
         .post('/api/v1/meals/5/foods/1')
         .then(response => {
-          response.should.have.status(404)
+          response.should.have.status(500)
         })
     })
 
@@ -68,7 +68,7 @@ describe('API routes', () => {
       return chai.request(server)
         .post('/api/v1/meals/1/foods/1000')
         .then(response => {
-          response.should.have.status(404)
+          response.should.have.status(500)
         })
     })
   })
@@ -76,14 +76,10 @@ describe('API routes', () => {
   describe("DELETE /api/v1/meals/:meal_id/foods/:id", () => {
     it("can delete a food from a meal", () => {
       return chai.request(server)
-        .post('/api/v1/meals/1/foods/12')
-        .then(() => {
-          chai.request(server)
-          .delete('/api/v1/meals/1/foods/12')
-          .then(response => {
-            response.should.have.status(204)
-          })
+        .delete('/api/v1/meals/1/foods/1')
+        .then(response => {
+          response.should.have.status(204)
         })
+      })
     })
-  })
 })
