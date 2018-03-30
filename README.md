@@ -1,33 +1,62 @@
 # Quantified Self Express API
 
+### Endpoints
+Base URL:
+```
+https://quantified-self-api-express.herokuapp.com
+```
+
+Food Endpoints:
+```
+GET /api/v1/foods - returns all foods currently in the database
+
+GET /api/v1/foods/:id - returns the food object with the specific :id you've passed in or 404 if the food is not found
+
+POST /api/v1/foods - allows creating a new food with the parameters:
+{ food: { name: "Name of food here", calories: "Calories here"} }
+
+PATCH /api/v1/foods/:id - allows one to update an existing food with the parameters:
+{ food: { name: "Name of food here", calories: "Calories here"} }
+
+DELETE /api/v1/foods/:id - will delete the food with the id passed in. If the food can't be found, a 404 will be returned.
+
+```
+Meal Endpoints:
+```
+GET /api/v1/meals - returns all the meals in the database along with their associated foods
+
+GET /api/v1/meals/:meal_id/foods - returns all the foods associated with the meal with an id specified by :meal_id or a 404 if the meal is not found
+
+POST /api/v1/meals/:meal_id/foods/:id - adds the food with :id to the meal with :meal_id
+
+DELETE /api/v1/meals/:meal_id/foods/:id - removes the food with :id from the meal with :meal_id
+```
 
 ### Initial Setup
+Clone repository:
 ```
 git clone https://github.com/JosiMcClellan/qs-express-api/
 cd qs-express-api
 npm install
-npm start
+```
+Create development and test databases with PostgreSQL
+```
+psql
+CREATE DATABASE qs_express_api;
+CREATE DATABASE qs_express_api_test;
+
+npm run start:dev
 ```
 then visit http://localhost:3000
 
 ### Running the Server
 To see your code in action, fire up a development server with:
 ```
-npm start
+npm run start:dev
 ```
 Once the server is running, visit http://localhost:3000 in your browser.
 
 ### Running the Tests
-The tests currently need to run in a browser environment, so running `npm test` will always fail.  Instead, first boot the server as usual with
 ```
-npm start
+npm test
 ```
-then visit http://localhost:8080/webpack-dev-server/test.html
-
-
-### Making Changes
-To build the static files, run:
-```
-npm run build
-```
-This must be done before committing and pushing if you want your site to work at github.io.  If you have another service that builds for you, feel free to delete any `*.bundle.js` files and skip this step.

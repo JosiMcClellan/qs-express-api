@@ -1,0 +1,14 @@
+[
+  {"mealId": 1, "foodId": 1},
+  {"mealId": 1, "foodId": 2},
+  {"mealId": 1, "foodId": 3},
+  {"mealId": 2, "foodId": 4},
+  {"mealId": 2, "foodId": 5},
+  {"mealId": 2, "foodId": 6},
+  {"mealId": 3, "foodId": 7},
+  {"mealId": 3, "foodId": 8},
+  {"mealId": 3, "foodId": 9},
+  {"mealId": 4, "foodId": 10},
+  {"mealId": 4, "foodId": 11},
+  {"mealId": 4, "foodId": 12}
+]
